@@ -37,7 +37,6 @@ inputs: filedir: dir to .csv including all performance data in specified units w
    moreinfo: antoniofs23.github.io/web
 '''
 
-
 import numpy as np
 import matplotlib as plt
 import pandas as pd
