@@ -57,6 +57,7 @@ def fit_psy_func(file,units):
     xvals = np.unique(data[data.columns[0]]) # extract x-values from 1st col 
     
     # extract number of conditions/factors/subjects
+    num_x    = np.unique(data[data.columns[0]])
     num_cond = np.unique(data[data.columns[2]])
     num_fac  = np.unique(data[data.columns[3]])
     num_subs = np.unique(data[data.columns[4]])
@@ -130,5 +131,10 @@ def fit_psy_func(file,units):
 
 
     # fit the mean across conditions for show
-     
-    return st_params  
+    st_cond_m=[]
+    for factor in UniqueNames:
+        data_m = DataFrameDict[factor]
+        for cond in num_cond:
+            cond_data = np.array(data_m.dprime[:][data_m.conditions==cond]).reshape(len(num_subs),len(num_x))
+            st_cond_m.append(np.mean(cond_data,axis=0))
+    return st_cond_m 
