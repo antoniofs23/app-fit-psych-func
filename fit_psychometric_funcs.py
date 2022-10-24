@@ -1,8 +1,7 @@
-from cmath import pi
-from tkinter import W
+from turtle import color
 
 
-def fit_psy_func(file,units,chance):
+def fit_psy_func(file,units,chance=0,color=False):
     '''
     Fits individual data and plots mean fit with errorbars 
 
@@ -41,8 +40,11 @@ def fit_psy_func(file,units,chance):
     fits a nakarushton function
 
     chance: what is chance performance in your task? if 2AFC then enter 50
-            if units are dprime enter 0
+            defaults to zero if not specified
 
+    color: specifiy a color per condition ranging from 0 to 1. Will be chosen 
+           pseudo-randomly if unspecified
+    
     **no implementation exists for minimization for negative log likelihood as
     **that would require single trial data
 
@@ -72,11 +74,21 @@ def fit_psy_func(file,units,chance):
     else:
         max_y = 1
     min_y = chance 
-    # generate an arbitrary number of colors (one per condition)
-    RGB=[]
-    for ii in range(len(num_cond)):
-        RGB.append([random.random(),random.random(),random.random()])
     
+    # check if user input colors
+    if color:
+        RGB = color   
+    else:
+        # generate an arbitrary number of colors (one per condition)
+        # that are evenly distrubuted according to the golden ratio
+        RGB=[]
+        for ii in range(1,len(num_cond)*3+1):
+            id  = random.randint(1,100)
+            phi = (1+np.sqrt(5))/2
+            RGB.append(id*phi-np.floor(id*phi))
+        RGB = list(np.array_split(RGB,3))
+ 
+ 
     # create a dataframe dict to split factors
     UniqueNames = data.factors.unique()
     DataFrameDict = {elem : pd.DataFrame() for elem in UniqueNames}
@@ -227,4 +239,4 @@ def fit_psy_func(file,units,chance):
     return  [st_params, sub_fits,m_fit]
 
 
-[subject_params, subject_fits, mean_fits] = fit_psy_func('sample_csv_data2.csv','dprime',0)
+[subject_params, subject_fits, mean_fits] = fit_psy_func('sample_csv_data2.csv','dprime')
