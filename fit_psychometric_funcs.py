@@ -1,3 +1,7 @@
+from cmath import pi
+from tkinter import W
+
+
 def fit_psy_func(file,units,chance):
     '''
     Fits individual data and plots mean fit with errorbars 
@@ -46,7 +50,7 @@ def fit_psy_func(file,units,chance):
     contact: antoniofs23@gmail.com
     moreinfo: antoniofs23.github.io/web
     '''
-    import ipdb
+    import random 
     import numpy as np
     import matplotlib.pyplot as plt
     import pandas as pd
@@ -63,7 +67,16 @@ def fit_psy_func(file,units,chance):
     num_cond = np.unique(data[data.columns[2]])
     num_fac  = np.unique(data[data.columns[3]])
     num_subs = np.unique(data[data.columns[4]])
-
+    if units=='dprime':
+        max_y    = np.max(data[data.columns[1]])
+    else:
+        max_y = 1
+    min_y = chance 
+    # generate an arbitrary number of colors (one per condition)
+    RGB=[]
+    for ii in range(len(num_cond)):
+        RGB.append([random.random(),random.random(),random.random()])
+    
     # create a dataframe dict to split factors
     UniqueNames = data.factors.unique()
     DataFrameDict = {elem : pd.DataFrame() for elem in UniqueNames}
@@ -165,6 +178,7 @@ def fit_psy_func(file,units,chance):
         
     #fit the function to each condition and individual subjects
     st_params = np.zeros(shape=(len(UniqueNames),len(num_subs),len(num_cond),len(x0)))
+    sub_fits = np.zeros(shape=(len(UniqueNames),len(num_subs),len(num_cond),len(num_x)))
     for f in range(len(UniqueNames)):        # factors
         temp_data = DataFrameDict[UniqueNames[f]]
         for s in range(len(num_subs)):       # subjects
@@ -173,38 +187,44 @@ def fit_psy_func(file,units,chance):
                 c_data = s_data[:][temp_data.conditions==num_cond[c]]
                 x_data = np.array(c_data[c_data.columns[1]]) 
                 res    = func_fit(x0,bnds,xvals,x_data,False,fc)
+                sub_fits[f,s,c,:] = func_run(xvals,x_data,res.x,True,fc)
                 st_params[f,s,c,:]=res.x # store parameters
-
-    #pdb.set_trace()
-    # define random colors [one for each condition]
-    #st_color = np.zeros(
-    #for ii in range(len(num_cond))
         
     # fit and plot the mean across conditions for show
+    m_fit = []
     for factor in UniqueNames:
-        plt.figure()
+        plt.figure(); c = 0
         data_m = DataFrameDict[factor]
         for cond in num_cond:
-            cond_data = np.mean(np.array(data_m.dprime[:][data_m.conditions==cond]).reshape(len(num_subs),len(num_x)),axis=0)
+            data_full = np.array(data_m.dprime[:][data_m.conditions==cond]).reshape(len(num_subs),len(num_x))
+            cond_data = np.mean(data_full,axis=0)
             res = func_fit(x0,bnds,xvals,cond_data,False,fc)
             
             if flg=='log':
                 nx = np.logspace(np.log10(xvals[0]),np.log10(xvals[-1]))
                 fit = func_run(nx,cond_data,res.x,True,fc)
-                plt.semilogx(xvals,cond_data,'o')
-                plt.semilogx(nx,fit,'-')
+                plt.semilogx(xvals,cond_data,'o',color=RGB[c])
+                plt.errorbar(xvals,cond_data,np.std(data_full,axis=0)/np.sqrt(len(num_subs)),fmt='none',color=RGB[c])
+                plt.semilogx(nx,fit,'-',color=RGB[c],label=num_cond[c])
             else:
                nx = np.linspace(xvals[0],xvals[-1],30)
                fit = func_run(nx,cond_data,res.x,True,fc)
-               plt.plot(xvals,cond_data,'o')
-               plt.plot(nx,fit,'--')
+               plt.plot(xvals,cond_data,'o',color=RGB[c])
+               plt.errorbar(xvals,cond_data,np.std(data_full,axis=0)/np.sqrt(len(num_subs)),fmt='none',color=RGB[c])
+               plt.plot(nx,fit,'-',color=RGB[c],label=num_cond[c])
             plt.title('factor'+str(factor))
             plt.xlabel(col_labels[0])
             if units=='dprime':
                 plt.ylabel('d-prime')
             else:
                 plt.ylabel('% correct')
-
+            c+=1
+            m_fit.append(fit)
+        plt.legend()
+        plt.ylim((min_y,max_y))
     plt.show() 
 
-    return  
+    return  [st_params, sub_fits,m_fit]
+
+
+[subject_params, subject_fits, mean_fits] = fit_psy_func('sample_csv_data2.csv','dprime',0)
