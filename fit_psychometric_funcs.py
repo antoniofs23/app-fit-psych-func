@@ -9,10 +9,10 @@ def fit_psy_func(file,units,chance=0,color=False):
         organized as such: 
     1st col - x-labels (ie, contrast values)
     2nd col - y-data   (ie, % correct or dprime)
-    3rd col - numerical condition labels (ie, if attention task valid/neutral/invalid, then 1,2,3)
-    4th col - numerical factor labels (ie, if conditions all attention cues then enter 1)
+    3rd col - alphanumerical condition labels (ie, if attention task then labels: valid/neutral/invalid OR 1,2,3)
+    4th col - alphanumerical factor labels (ie, if conditions all attention then enter 1 OR attention)
     5th col - numerical subject labels
-    Example:
+    Example with numerical labels:
     | contrast | dprime | conditions | factors| subjects |
     2         0.02        1           1        1
     7         1.1         1           1        1
@@ -43,14 +43,13 @@ def fit_psy_func(file,units,chance=0,color=False):
             defaults to zero if not specified
 
     color: specifiy a color per condition ranging from 0 to 1. Will be chosen 
-           pseudo-randomly if unspecified
+           pseudo-randomly (from 100 possible) if unspecified
     
-    **no implementation exists for minimization for negative log likelihood as
+    **no implementation exists for minimization via negative log likelihood as
     **that would require single trial data
 
     CREATED BY: Antonio Fernandez [Oct. 20, 2022]
     contact: antoniofs23@gmail.com
-    moreinfo: antoniofs23.github.io/web
     '''
     import random 
     import numpy as np
@@ -81,9 +80,9 @@ def fit_psy_func(file,units,chance=0,color=False):
     else:
         # generate an arbitrary number of colors (one per condition)
         # that are evenly distrubuted according to the golden ratio
-        RGB=[]
-        for ii in range(1,len(num_cond)*3+1):
-            id  = random.randint(1,100)
+        RGB=[]; RGB_list = np.random.permutation(100)
+        for ii in range(0,len(num_cond)*3):
+            id  = RGB_list[ii]
             phi = (1+np.sqrt(5))/2
             RGB.append(id*phi-np.floor(id*phi))
         RGB = list(np.array_split(RGB,3))
@@ -224,7 +223,7 @@ def fit_psy_func(file,units,chance=0,color=False):
                plt.plot(xvals,cond_data,'o',color=RGB[c])
                plt.errorbar(xvals,cond_data,np.std(data_full,axis=0)/np.sqrt(len(num_subs)),fmt='none',color=RGB[c])
                plt.plot(nx,fit,'-',color=RGB[c],label=num_cond[c])
-            plt.title('factor'+str(factor))
+            plt.title('factor: '+str(factor))
             plt.xlabel(col_labels[0])
             if units=='dprime':
                 plt.ylabel('d-prime')
@@ -239,4 +238,4 @@ def fit_psy_func(file,units,chance=0,color=False):
     return  [st_params, sub_fits,m_fit]
 
 
-[subject_params, subject_fits, mean_fits] = fit_psy_func('sample_csv_data2.csv','dprime')
+[subject_params, subject_fits, mean_fits] = fit_psy_func('sample_csv_data.csv','dprime')
