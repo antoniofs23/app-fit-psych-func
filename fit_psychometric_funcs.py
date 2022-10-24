@@ -54,10 +54,14 @@ def fit_psy_func(file,units,chance=0,color=False):
     import random 
     import numpy as np
     import matplotlib.pyplot as plt
+    import seaborn as sns
     import pandas as pd
     from scipy import stats
     from scipy.optimize import minimize
 
+    # change plotting style to seaborn
+    sns.set_theme()
+    
     # read csv file 
     data = pd.read_csv(file)
     col_labels = data.columns # extract column labels    
@@ -225,6 +229,7 @@ def fit_psy_func(file,units,chance=0,color=False):
                plt.plot(nx,fit,'-',color=RGB[c],label=num_cond[c])
             plt.title('factor: '+str(factor))
             plt.xlabel(col_labels[0])
+            plt.xticks(num_x,labels=num_x)
             if units=='dprime':
                 plt.ylabel('d-prime')
             else:
