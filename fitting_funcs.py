@@ -31,9 +31,8 @@ def weibull(x, data, par, flag):
         cost = sum(data-fit)**2
         return cost
 
-# for testing reasons -- can loosely convert from d-prime to % correct via 
+# for testing reasons -- can very loosely convert from d-prime to % correct via 
 def dprime2corr(dprime):
     pcorr = [norm.cdf(d)**2 for d in dprime]
-    
     return pcorr
      

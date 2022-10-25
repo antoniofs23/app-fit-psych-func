@@ -2,7 +2,7 @@ def fit_psy_func(file,units,chance=0,color=False):
     '''
     Fits individual data and plots mean fit with errorbars (SEM) 
 
-        inputs: file:    .csv file name (ie., data.csv) including all performance data in specified units with column labels
+        inputs: file:    .csv file (named data.csv) including all performance data in specified units with column labels
         organized as such: 
     1st col - x-labels (ie, contrast values)
     2nd col - y-data   (ie, % correct or dprime)
@@ -49,14 +49,14 @@ def fit_psy_func(file,units,chance=0,color=False):
     '''
     import numpy as np
     import matplotlib.pyplot as plt
-    import seaborn as sns
+    #import seaborn as sns
     import pandas as pd
     from scipy import stats
     from scipy.optimize import minimize
     import fitting_funcs as ff
 
     # change plotting style to seaborn
-    sns.set_theme()
+    #sns.set_theme()
     
     # read csv file 
     data = pd.read_csv(file)
@@ -80,7 +80,7 @@ def fit_psy_func(file,units,chance=0,color=False):
     min_y = chance 
     
     # check if user input colors
-    if color:
+    if len(color)==3:
         RGB = color   
     else:
         # generate an arbitrary number of colors (one per condition)
@@ -134,7 +134,7 @@ def fit_psy_func(file,units,chance=0,color=False):
             fun = lambda par: ff.nakarushton(x,data,par,flag)
         if fc == 'weibull':
             fun = lambda par: ff.weibull(x,data,par,flag)
-        return  minimize(fun,x0,method='Nelder-Mead',bounds=bnds)
+        return  minimize(fun,x0,method='SLSQP',bounds=bnds)
     
     # relaxed bounds and starting points for parameter space
     if units=='accuracy':
@@ -185,7 +185,7 @@ def fit_psy_func(file,units,chance=0,color=False):
                plt.plot(nx,fit,'-',color=RGB[c],label=num_cond[c])
             plt.title('factor: '+str(factor))
             plt.xlabel(col_labels[0])
-            plt.xticks(num_x,labels=num_x)
+            plt.xticks(num_x,num_x)
             if units=='dprime':
                 plt.ylabel('d-prime')
             else:
@@ -196,6 +196,9 @@ def fit_psy_func(file,units,chance=0,color=False):
         plt.ylim((min_y,max_y))
     plt.show() 
 
+    # save output parameters and fits
+    
+
     return  [st_params, sub_fits,m_fit]
 
 
@@ -204,3 +207,10 @@ def fit_psy_func(file,units,chance=0,color=False):
 #[subject_params, subject_fits, mean_fits] = fit_psy_func('sample_csv_data.csv','dprime')
 #[subject_params, subject_fits, mean_fits] = fit_psy_func('sample_csv_data2.csv','dprime')
 
+import json
+
+# load inputs from config.json
+with open('config.json') as config_json:
+    config = json.load(config_json)
+
+[subject_params, subject_fits, mean_fits] = fit_psy_func(config['file'],config['units'],config['chance'],config['color'])

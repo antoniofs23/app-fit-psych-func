@@ -1,3 +1,6 @@
 {
-   "data": "~/data.csv"
+   "file": "sample_csv_data3.csv",
+   "units": "accuracy",
+   "chance": 0.25,
+   "color": [0] 
 }
