@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#PBS -l nodes=1:ppn=1
+#PBS -l walltime=00:05:00
+
+#parse config.json for input parameters (here, we are pulling "csv file")
+t1=$(jq -r .csv config.json)
+./app.py $csv
