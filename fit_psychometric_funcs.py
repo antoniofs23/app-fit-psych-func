@@ -199,4 +199,8 @@ def fit_psy_func(file,units,chance=0,color=False):
     return  [st_params, sub_fits,m_fit]
 
 
-[subject_params, subject_fits, mean_fits] = fit_psy_func('sample_csv_data3.csv','accuracy',chance=0.25)
+# test cases
+#[subject_params, subject_fits, mean_fits] = fit_psy_func('sample_csv_data3.csv','accuracy',chance=0.25)
+#[subject_params, subject_fits, mean_fits] = fit_psy_func('sample_csv_data.csv','dprime')
+#[subject_params, subject_fits, mean_fits] = fit_psy_func('sample_csv_data2.csv','dprime')
+
