@@ -1,6 +1,3 @@
-from turtle import color
-
-
 def fit_psy_func(file,units,chance=0,color=False):
     '''
     Fits individual data and plots mean fit with errorbars 
@@ -33,11 +30,10 @@ def fit_psy_func(file,units,chance=0,color=False):
     if "dprime" then assumes units are 0 to infinity
     
     if units = 'accuracy'
-    **if log x-vals the code defaults to fitting a log-Weibull or Gumble function
-    **if linear x-vals the code defaults to fitting a Weibull function
+    **the code defaults to fitting a Weibull function
     **for simplicity cost function is defined as sum squared error**
     if units = 'dprime'
-    fits a nakarushton function
+    **fits a nakarushton function
 
     chance: what is chance performance in your task? if 2AFC then enter 50
             defaults to zero if not specified
@@ -51,13 +47,13 @@ def fit_psy_func(file,units,chance=0,color=False):
     CREATED BY: Antonio Fernandez [Oct. 20, 2022]
     contact: antoniofs23@gmail.com
     '''
-    import random 
     import numpy as np
     import matplotlib.pyplot as plt
     import seaborn as sns
     import pandas as pd
     from scipy import stats
     from scipy.optimize import minimize
+    import fitting_funcs as ff
 
     # change plotting style to seaborn
     sns.set_theme()
@@ -69,9 +65,14 @@ def fit_psy_func(file,units,chance=0,color=False):
     
     # extract number of conditions/factors/subjects
     num_x    = np.unique(data[data.columns[0]])
+    #all_y    = data[data.columns[1]]
     num_cond = np.unique(data[data.columns[2]])
     num_fac  = np.unique(data[data.columns[3]])
     num_subs = np.unique(data[data.columns[4]])
+    
+    #pcorr = ff.dprime2corr(all_y)
+    #np.savetxt('pcorr.csv',pcorr,delimiter=',',fmt='%s')
+    
     if units=='dprime':
         max_y    = np.max(data[data.columns[1]])
     else:
@@ -112,7 +113,7 @@ def fit_psy_func(file,units,chance=0,color=False):
         fc = 'weibull'; flg = 'linear'
         print('assuming linear x-values')
     else:
-        fc = 'gumbel'; flg = 'log'
+        fc = 'weibull'; flg = 'log'
         print('assuming logarithmic x-values')
 
     # if % correct check what chance is
@@ -120,73 +121,25 @@ def fit_psy_func(file,units,chance=0,color=False):
     if units=='dprime':
          fc = 'nakarushton'
         
-    # define objective function for Nakarushton (d-prime units)
-    def nakarushton(x,data,par,flag):
-        dmax = par[0]
-        c50  = par[1]
-        n    = par[2]
-        b    = par[3]
- 
-        fit = dmax*((x**n)/(x**n+c50**n))+b
-        
-        if flag==True:
-          return fit
-        else:
-          cost = sum(data-fit)**2
-          return cost
-        
-        
-    # define objective functions for Weibull and log-Weibull (GUMBEL) (accuracy units)
-    def weibull(x,data,par,flag):
-        gamma = par[0] # guess rate [fixed and given by experiment] 
-        lam   = par[1] # guess rate shouldnt  exceed 2%
-        alpha = par[2] # threshold
-        beta  = par[3] # slope
-
-        fit = gamma+(1-gamma-lam)*(1-np.exp(-1*(x/alpha)**beta))
-            
-        if flag==True:
-          return fit
-        else:
-          cost = sum(data-fit)**2
-          return cost
-        
-    def gumbel(x,data,par,flag):
-        gamma = par[0] # guess rate [fixed and given by experiment] 
-        lam   = par[1] # guess rate shouldnt  exceed 2%
-        alpha = par[2] # threshold
-        beta  = par[3] # slope
-
-        fit = gamma+(1-gamma-lam)*(1-np.exp(-1*10**(beta*(x-alpha))))
-            
-        if flag==True:
-          return fit
-        else:
-          cost = sum(data-fit)**2
-          return cost
     
     def func_run(x,data,par,flag,fc):
         if fc=='nakarushton':
-            fit = nakarushton(x,data,par,flag)
+            fit = ff.nakarushton(x,data,par,flag)
         if fc=='weibull':
-            fit = weibull(x,data,par,flag)
-        if fc=='gumbel':
-            fit = gumbel(x,data,par,flag)
+            fit = ff.weibull(x,data,par,flag)
         return fit
     
     def func_fit(x0,bnds,x,data,flag,fc):
         if fc == 'nakarushton':
-            fun = lambda par: nakarushton(x,data,par,flag)
-        if fc == 'gumbel':          
-            fun = lambda par: gumbel(x,data,par,flag)
+            fun = lambda par: ff.nakarushton(x,data,par,flag)
         if fc == 'weibull':
-            fun = lambda par: weibull(x,data,par,flag)
+            fun = lambda par: ff.weibull(x,data,par,flag)
         return  minimize(fun,x0,method='Nelder-Mead',bounds=bnds)
     
     # relaxed bounds and starting points for parameter space
     if units=='accuracy':
-        bnds = ((b,b),(0,0.02),(np.quantile(xvals,0.25),np.quantile(xvals,0.75)),(1,5)) # parameter lower and upper bounds
-        x0 = (0.5,0.01,xvals[1],2) # starting point for parameters
+        bnds = ((b,b),(0,1),(np.quantile(xvals,0.1),np.quantile(xvals,0.9)),(0,5)) # parameter lower and upper bounds
+        x0 = (b,0.3,xvals[2],2) # starting point for parameters
     else:
         bnds = ((0.1,8),(np.quantile(xvals,0.25),np.quantile(xvals,0.75)),(1,5),(-0.3,0.5)) # parameter lower and upper bounds
         x0 = (3,xvals[2],2,0.02) # starting point for parameters
@@ -211,12 +164,15 @@ def fit_psy_func(file,units,chance=0,color=False):
         plt.figure(); c = 0
         data_m = DataFrameDict[factor]
         for cond in num_cond:
-            data_full = np.array(data_m.dprime[:][data_m.conditions==cond]).reshape(len(num_subs),len(num_x))
+            if units=='dprime':
+                data_full = np.array(data_m.dprime[:][data_m.conditions==cond]).reshape(len(num_subs),len(num_x))
+            else:
+                data_full = np.array(data_m.accuracy[:][data_m.conditions==cond]).reshape(len(num_subs),len(num_x))
             cond_data = np.mean(data_full,axis=0)
             res = func_fit(x0,bnds,xvals,cond_data,False,fc)
             
             if flg=='log':
-                nx = np.logspace(np.log10(xvals[0]),np.log10(xvals[-1]))
+                nx = np.logspace(np.log10(xvals[0]),np.log10(xvals[-1]),30)
                 fit = func_run(nx,cond_data,res.x,True,fc)
                 plt.semilogx(xvals,cond_data,'o',color=RGB[c])
                 plt.errorbar(xvals,cond_data,np.std(data_full,axis=0)/np.sqrt(len(num_subs)),fmt='none',color=RGB[c])
@@ -243,4 +199,4 @@ def fit_psy_func(file,units,chance=0,color=False):
     return  [st_params, sub_fits,m_fit]
 
 
-[subject_params, subject_fits, mean_fits] = fit_psy_func('sample_csv_data.csv','dprime')
+[subject_params, subject_fits, mean_fits] = fit_psy_func('sample_csv_data3.csv','accuracy',chance=0.25)
