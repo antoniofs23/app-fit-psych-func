@@ -1,6 +1,6 @@
 def fit_psy_func(file,units,chance=0,color=False):
     '''
-    Fits individual data and plots mean fit with errorbars 
+    Fits individual data and plots mean fit with errorbars (SEM) 
 
         inputs: file:    .csv file name (ie., data.csv) including all performance data in specified units with column labels
         organized as such: 
