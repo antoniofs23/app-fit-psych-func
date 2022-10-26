@@ -2,6 +2,7 @@ Fits individual data and plots mean fit with errorbars (SEM)
 
 **inputs:** 
 <hr/>
+
 **file:**    
 
 .csv file (named data.csv) including all performance data in specified units with column labels
@@ -32,7 +33,8 @@ Example with numerical labels (condition and factor labels can also be words):
 |       ...|   ...  |       ...  |    ... |     ...n |
         
 <hr/>
-*units*: 
+
+**units:** 
 <li>if "accuracy" then units assumed to range from 0 to 1
 <li>if "dprime" then assumes units are 0 to infinity
 
@@ -44,7 +46,7 @@ if units = 'dprime'
 <li>**fits a nakarushton function
 <hr/>
 
-*chance:* 
+**chance:** 
 
 what is chance performance in your task? 
 
@@ -56,7 +58,7 @@ if units are accuracy:
 f units are dprime enter 0 regardless of task
 <hr/>
 
-*color:*
+**color:**
 
 <li>specifiy a color per condition ranging from 0 to 1. 
 <li>Will be chosen pseudo-randomly (from 100 possible)  if input is [0]
@@ -64,8 +66,7 @@ f units are dprime enter 0 regardless of task
 [[0.1,0.1,0.1],[0.2,0.2,0.2],[0.3,0.3,0.3]]
  <hr/>
    
-**no implementation exists for minimization via negative log likelihood as
-**that would require single trial data
+*no implementation exists for minimization via negative log likelihood as that would require single trial data*
 
 CREATED BY: Antonio Fernandez [Oct. 20, 2022]
 contact: antoniofs23@gmail.com
