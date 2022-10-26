@@ -72,7 +72,7 @@ outputs an output.npy file in out_dir with three variables:
 1. subjects parameters
 2. subject fits
 3. fits to group mean 
-
+---
 
 *no implementation exists for minimization via negative log likelihood as that would require single trial data*
 
