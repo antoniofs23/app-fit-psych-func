@@ -1,4 +1,4 @@
-Fits individual data and plots mean fit with errorbars (SEM) 
+Fits individual data and plots mean fit with errorbars computed as ± 1 Standard Error of the Mean
 
 **inputs:** 
 <hr/>
