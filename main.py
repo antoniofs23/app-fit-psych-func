@@ -47,6 +47,12 @@ def fit_psy_func(file,units,chance=0,color=False):
             i.e. specify three colors one for each condition via:
             [[0.1,0.1,0.1],[0.2,0.2,0.2],[0.3,0.3,0.3]]
     
+    output:
+        outputs an output.npy file in out_dir with three variables:
+        1) subjects parameters
+        2) subject fits
+        3) fits to group mean 
+
     **no implementation exists for minimization via negative log likelihood as
     **that would require single trial data
 
@@ -60,7 +66,8 @@ def fit_psy_func(file,units,chance=0,color=False):
     from scipy import stats
     from scipy.optimize import minimize
     import fitting_funcs as ff
-
+    from tempfile import TemporaryFile
+    
     # change plotting style to seaborn
     #sns.set_theme()
     
@@ -201,11 +208,14 @@ def fit_psy_func(file,units,chance=0,color=False):
         plt.ylim((min_y,max_y))
     plt.show() 
 
-    # save output parameters and fits
-    
-
-    return  [st_params, sub_fits,m_fit]
-
+    # save output parameters in .npy format to be easily readable by other python-based apps
+    # subject parameters/fits
+    with open('./out_dir/output.npy','wb') as f:
+        np.save(f,st_params)
+        np.save(f,sub_fits)
+        np.save(f,m_fit) 
+        
+    return  
 
 # test cases
 #[subject_params, subject_fits, mean_fits] = fit_psy_func('sample_csv_data3.csv','accuracy',chance=0.25)
@@ -213,9 +223,17 @@ def fit_psy_func(file,units,chance=0,color=False):
 #[subject_params, subject_fits, mean_fits] = fit_psy_func('sample_csv_data2.csv','dprime')
 
 import json
+#import numpy as np
 
 # load inputs from config.json
 with open('config.json') as config_json:
     config = json.load(config_json)
 
-[subject_params, subject_fits, mean_fits] = fit_psy_func(config['file'],config['units'],config['chance'],config['color'])
+fit_psy_func(config['file'],config['units'],config['chance'],config['color'])
+
+# to open output file
+#with open('output.npy', 'rb') as f:
+#    st_params = np.load(f)
+#    sub_fits= np.load(f)
+#    m_fit = np.load(f)
+    
