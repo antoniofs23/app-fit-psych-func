@@ -9,6 +9,7 @@ organized as such:
 <li> 5th col - numerical subject labels
 
 Example with numerical labels:
+
 | contrast | dprime | conditions | factors| subjects |
 | -------- | ------ | ---------- | ------ | -------- |     
      2         0.02        1           1        1
