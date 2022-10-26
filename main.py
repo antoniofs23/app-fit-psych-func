@@ -35,8 +35,12 @@ def fit_psy_func(file,units,chance=0,color=False):
         if units = 'dprime'
         **fits a nakarushton function
 
-        chance: what is chance performance in your task? if 2AFC then enter 50
-                defaults to zero if not specified
+        chance: what is chance performance in your task? 
+                if units are accuracy:
+                chance is derived from response alternatives i.e., if your
+                task has two-choices (yes/no) then chance is 50% so enter 0.5
+                if four-choices then chance is 25%  enter 0.25
+                if units are dprime enter 0 regardless of task
 
         color: specifiy a color per condition ranging from 0 to 1. Will be chosen 
             pseudo-randomly (from 100 possible) if input is [0]
