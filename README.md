@@ -1,8 +1,11 @@
 Fits individual data and plots mean fit with errorbars (SEM) 
 
-inputs: 
+**inputs:** 
+<hr/>
+**file:**    
 
-*file*:    .csv file (named data.csv) including all performance data in specified units with column labels
+.csv file (named data.csv) including all performance data in specified units with column labels
+
 organized as such: 
 <li>1st col - x-labels (ie, contrast values)
 <li>2nd col - y-data   (ie, accuracy or dprime)
@@ -49,7 +52,8 @@ if units are accuracy:
 <li>chance is derived from response alternatives i.e., if your
 <li>task has two-choices (yes/no) then chance is 50% so enter 0.5
 <li>if four-choices then chance is 25%  enter 0.25
-<li>if units are dprime enter 0 regardless of task
+
+f units are dprime enter 0 regardless of task
 <hr/>
 
 *color:*
