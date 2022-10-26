@@ -8,7 +8,7 @@ organized as such:
 <li>4th col - alphanumerical factor labels (ie, if conditions all attention then enter 1 OR attention)
 <li> 5th col - numerical subject labels
 
-Example with numerical labels:
+Example with numerical labels (condition and factor labels can also be words):
 
 | contrast | dprime | conditions | factors| subjects |
 | -------- | ------ | ---------- | ------ | -------- |     
@@ -27,14 +27,16 @@ Example with numerical labels:
 |       ...|   ...  |       ...  |    ... |     ...n |
         
 
-        units: if "accuracy" then units assumed to be in % correct from X to 100%
-            if "dprime" then assumes units are 0 to infinity
-            
-            if units = 'accuracy'
-            **the code defaults to fitting a Weibull function
-            **for simplicity cost function is defined as sum squared error**
-            if units = 'dprime'
-            **fits a nakarushton function
+units: 
+<li>if "accuracy" then units assumed to be in % correct from X to 100%
+<li>if "dprime" then assumes units are 0 to infinity
+
+if units = 'accuracy'
+<li>**the code defaults to fitting a Weibull function
+<li>**for simplicity cost function is defined as sum squared error**
+
+if units = 'dprime'
+<li>**fits a nakarushton function
 
         chance: what is chance performance in your task? 
                 if units are accuracy:
