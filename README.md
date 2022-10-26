@@ -65,7 +65,15 @@ if units are dprime enter 0 regardless of task/choice alternatives
 <li>specify three colors one for each of three condition example:
 [[0.1,0.1,0.1],[0.2,0.2,0.2],[0.3,0.3,0.3]]
  <hr/>
-   
+
+**output:**
+outputs an output.npy file in out_dir with three variables:
+
+1. subjects parameters
+2. subject fits
+3. fits to group mean 
+
+
 *no implementation exists for minimization via negative log likelihood as that would require single trial data*
 
 CREATED BY: Antonio Fernandez [Oct. 20, 2022]
