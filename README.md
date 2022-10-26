@@ -5,7 +5,7 @@ inputs:
 *file*:    .csv file (named data.csv) including all performance data in specified units with column labels
 organized as such: 
 <li>1st col - x-labels (ie, contrast values)
-<li>2nd col - y-data   (ie, % correct or dprime)
+<li>2nd col - y-data   (ie, accuracy or dprime)
 <li>3rd col - alphanumerical condition labels (ie, if attention task then labels: valid/neutral/invalid OR 1,2,3)
 <li>4th col - alphanumerical factor labels (ie, if conditions all attention then enter 1 OR attention)
 <li> 5th col - numerical subject labels
@@ -30,7 +30,7 @@ Example with numerical labels (condition and factor labels can also be words):
         
 
 *units*: 
-<li>if "accuracy" then units assumed to be in % correct from X to 100%
+<li>if "accuracy" then units assumed to range from 0 to 1
 <li>if "dprime" then assumes units are 0 to infinity
 
 if units = 'accuracy'
@@ -54,7 +54,7 @@ if units are accuracy:
 
 <li>specifiy a color per condition ranging from 0 to 1. 
 <li>Will be chosen pseudo-randomly (from 100 possible)  if input is [0]
-<li>specify three colors one for each of three condition via:
+<li>specify three colors one for each of three condition example:
 [[0.1,0.1,0.1],[0.2,0.2,0.2],[0.3,0.3,0.3]]
     
 **no implementation exists for minimization via negative log likelihood as
