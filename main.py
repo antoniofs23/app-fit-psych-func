@@ -39,7 +39,9 @@ def fit_psy_func(file,units,chance=0,color=False):
             defaults to zero if not specified
 
     color: specifiy a color per condition ranging from 0 to 1. Will be chosen 
-           pseudo-randomly (from 100 possible) if unspecified
+           pseudo-randomly (from 100 possible) if input is [0]
+           i.e. specify three colors one for each condition via:
+           [[0.1,0.1,0.1],[0.2,0.2,0.2],[0.3,0.3,0.3]]
     
     **no implementation exists for minimization via negative log likelihood as
     **that would require single trial data
@@ -139,7 +141,7 @@ def fit_psy_func(file,units,chance=0,color=False):
     # relaxed bounds and starting points for parameter space
     if units=='accuracy':
         bnds = ((b,b),(0,1),(np.quantile(xvals,0.1),np.quantile(xvals,0.9)),(0,5)) # parameter lower and upper bounds
-        x0 = (b,0.3,xvals[2],2) # starting point for parameters
+        x0 = (b,0.02,xvals[2],2) # starting point for parameters
     else:
         bnds = ((0.1,8),(np.quantile(xvals,0.25),np.quantile(xvals,0.75)),(1,5),(-0.3,0.5)) # parameter lower and upper bounds
         x0 = (3,xvals[2],2,0.02) # starting point for parameters
