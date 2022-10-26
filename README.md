@@ -7,6 +7,7 @@ organized as such:
 <li>3rd col - alphanumerical condition labels (ie, if attention task then labels: valid/neutral/invalid OR 1,2,3)
 <li>4th col - alphanumerical factor labels (ie, if conditions all attention then enter 1 OR attention)
 <li> 5th col - numerical subject labels
+
 Example with numerical labels:
 | contrast | dprime | conditions | factors| subjects |
 | -------- | ------ | ---------- | ------ | -------- |     
