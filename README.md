@@ -1,16 +1,17 @@
-   Fits individual data and plots mean fit with errorbars (SEM) 
+Fits individual data and plots mean fit with errorbars (SEM) 
 
-    inputs: file:    .csv file (named data.csv) including all performance data in specified units with column labels
-        organized as such: 
-        1st col - x-labels (ie, contrast values)
-        2nd col - y-data   (ie, % correct or dprime)
-        3rd col - alphanumerical condition labels (ie, if attention task then labels: valid/neutral/invalid OR 1,2,3)
-        4th col - alphanumerical factor labels (ie, if conditions all attention then enter 1 OR attention)
-        5th col - numerical subject labels
-        Example with numerical labels:
-        | contrast | dprime | conditions | factors| subjects |
-        2         0.02        1           1        1
-        7         1.1         1           1        1
+inputs: file:    .csv file (named data.csv) including all performance data in specified units with column labels
+organized as such: 
+<li>1st col - x-labels (ie, contrast values)
+<li>2nd col - y-data   (ie, % correct or dprime)
+<li>3rd col - alphanumerical condition labels (ie, if attention task then labels: valid/neutral/invalid OR 1,2,3)
+<li>4th col - alphanumerical factor labels (ie, if conditions all attention then enter 1 OR attention)
+<li> 5th col - numerical subject labels
+Example with numerical labels:
+| contrast | dprime | conditions | factors| subjects |
+| -------- | ------ | ---------- | ------ | -------- |     
+     2         0.02        1           1        1
+     7         1.1         1           1        1
         13        1.6         1           1        1
         24        1.75        1           1        1
         46        2.2         1           1        1
