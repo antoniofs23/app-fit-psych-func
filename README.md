@@ -1,6 +1,8 @@
 Fits individual data and plots mean fit with errorbars (SEM) 
 
-inputs: file:    .csv file (named data.csv) including all performance data in specified units with column labels
+inputs: 
+
+*file*:    .csv file (named data.csv) including all performance data in specified units with column labels
 organized as such: 
 <li>1st col - x-labels (ie, contrast values)
 <li>2nd col - y-data   (ie, % correct or dprime)
@@ -27,7 +29,7 @@ Example with numerical labels (condition and factor labels can also be words):
 |       ...|   ...  |       ...  |    ... |     ...n |
         
 
-units: 
+*units*: 
 <li>if "accuracy" then units assumed to be in % correct from X to 100%
 <li>if "dprime" then assumes units are 0 to infinity
 
@@ -38,20 +40,25 @@ if units = 'accuracy'
 if units = 'dprime'
 <li>**fits a nakarushton function
 
-        chance: what is chance performance in your task? 
-                if units are accuracy:
-                chance is derived from response alternatives i.e., if your
-                task has two-choices (yes/no) then chance is 50% so enter 0.5
-                if four-choices then chance is 25%  enter 0.25
-                if units are dprime enter 0 regardless of task
+*chance:* 
 
-        color: specifiy a color per condition ranging from 0 to 1. Will be chosen 
-                pseudo-randomly (from 100 possible) if input is [0]
-                i.e. specify three colors one for each condition via:
-                [[0.1,0.1,0.1],[0.2,0.2,0.2],[0.3,0.3,0.3]]
+what is chance performance in your task? 
+
+if units are accuracy:
+<li>chance is derived from response alternatives i.e., if your
+<li>task has two-choices (yes/no) then chance is 50% so enter 0.5
+<li>if four-choices then chance is 25%  enter 0.25
+<li>if units are dprime enter 0 regardless of task
+
+*color:*
+
+<li>specifiy a color per condition ranging from 0 to 1. 
+<li>Will be chosen pseudo-randomly (from 100 possible)  if input is [0]
+<li>specify three colors one for each of three condition via:
+[[0.1,0.1,0.1],[0.2,0.2,0.2],[0.3,0.3,0.3]]
     
-    **no implementation exists for minimization via negative log likelihood as
-    **that would require single trial data
+**no implementation exists for minimization via negative log likelihood as
+**that would require single trial data
 
-    CREATED BY: Antonio Fernandez [Oct. 20, 2022]
-    contact: antoniofs23@gmail.com
+CREATED BY: Antonio Fernandez [Oct. 20, 2022]
+contact: antoniofs23@gmail.com
