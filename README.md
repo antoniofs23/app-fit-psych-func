@@ -55,7 +55,7 @@ if units are accuracy:
 <li>task has two-choices (yes/no) then chance is 50% so enter 0.5
 <li>if four-choices then chance is 25%  enter 0.25
 
-f units are dprime enter 0 regardless of task
+if units are dprime enter 0 regardless of task/choice alternatives
 <hr/>
 
 **color:**

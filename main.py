@@ -122,12 +122,11 @@ def fit_psy_func(file,units,chance=0,color=False):
         fc = 'weibull'; flg = 'log'
         print('assuming logarithmic x-values')
 
-    # if % correct check what chance is
+    # check lower bound on x-vals given by chance input
     b = chance
     if units=='dprime':
          fc = 'nakarushton'
         
-    
     def func_run(x,data,par,flag,fc):
         if fc=='nakarushton':
             fit = ff.nakarushton(x,data,par,flag)
