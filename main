@@ -13,4 +13,6 @@
 mkdir -p out_dir
 
 # run the actual python code
+# can run python3.7 by removing the 1.1.1 --otherwise assumes 3.6
+# works now in 3.6
 singularity exec docker://brainlife/dipy:1.1.1 python3 main.py
