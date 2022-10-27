@@ -206,7 +206,7 @@ def fit_psy_func(file,units,chance=0,color=False):
             m_fit.append(fit)
         plt.legend()
         plt.ylim((min_y,max_y))
-    plt.show() 
+    #plt.show() 
 
     # save output parameters in .npy format to be easily readable by other python-based apps
     # subject parameters/fits
