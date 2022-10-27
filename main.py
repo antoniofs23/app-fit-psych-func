@@ -1,4 +1,4 @@
-def fit_psy_func(file,func,chance):
+def fit_psy_func(file,func,chance,plot):
     '''
     [UNDER CONSTRUCTION]
     
@@ -13,7 +13,7 @@ def fit_psy_func(file,func,chance):
       chance  {float}:  what is chance performance in your task? example if a detection task
                         then there are 2 response alternatives (yes/no) so enter 0.5, 
                         if 4 response alternatives enter 0.25
-
+         plot  {bool}:  if True plots the fits / False = no plots 
     output:
         output.npy file in the our_dir containing:
         1) % correct per condition
@@ -26,15 +26,11 @@ def fit_psy_func(file,func,chance):
     '''
     import numpy as np
     import matplotlib.pyplot as plt
-    #import seaborn as sns
     import pandas as pd
     from scipy import stats
     from scipy.optimize import minimize
     import fitting_funcs as ff
-    
-    # change plotting style to seaborn
-    #sns.set_theme()
-    
+
     # read csv file 
     data = pd.read_csv(file)
     col_labels = data.columns # extract column labels    
@@ -42,32 +38,16 @@ def fit_psy_func(file,func,chance):
     
     # extract number of conditions/factors/subjects
     num_x    = np.unique(data[data.columns[0]])
-    #all_y    = data[data.columns[1]]
     num_cond = np.unique(data[data.columns[2]])
-    num_fac  = np.unique(data[data.columns[3]])
-    num_subs = np.unique(data[data.columns[4]])
     
-    #pcorr = ff.dprime2corr(all_y)
-    #np.savetxt('pcorr.csv',pcorr,delimiter=',',fmt='%s')
-    
-    if units=='dprime':
-        max_y    = np.max(data[data.columns[1]])
-    else:
-        max_y = 1
-    min_y = chance 
-    
-    # check if user input colors
-    if len(color)==3:
-        RGB = color   
-    else:
-        # generate an arbitrary number of colors (one per condition)
-        # that are evenly distrubuted according to the golden ratio
-        RGB=[]; RGB_list = np.random.permutation(100)
-        for ii in range(0,len(num_cond)*3):
-            id  = RGB_list[ii]
-            phi = (1+np.sqrt(5))/2
-            RGB.append(id*phi-np.floor(id*phi))
-        RGB = list(np.array_split(RGB,3))
+    # generate an arbitrary number of colors (one per condition)
+    # that are evenly distrubuted according to the golden ratio
+    RGB=[]; RGB_list = np.random.permutation(100)
+    for ii in range(0,len(num_cond)*3):
+        id  = RGB_list[ii]
+        phi = (1+np.sqrt(5))/2
+        RGB.append(id*phi-np.floor(id*phi))
+    RGB = list(np.array_split(RGB,3))
  
  
     # create a dataframe dict to split factors
