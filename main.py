@@ -1,4 +1,4 @@
-def fit_psy_func(file,chance=0):
+def fit_psy_func(file,func,chance):
     '''
     [UNDER CONSTRUCTION]
     
@@ -6,10 +6,13 @@ def fit_psy_func(file,chance=0):
     trial-wise responses and plots fit with bootstrapped errorbars
     
     inputs: 
-        file:  .csv file containing trial-wise subject responses
-      chance:  what is chance performance in your task? example if a detection task
-               then there are 2 response alternatives (yes/no) so enter 0.5, 
-               if 4 response alternatives enter 0.25
+        file   {.csv}:  file containing trial-wise subject responses
+        func {string}:  function to fit [options]:
+                        1) nakarushton
+                        2) weibull
+      chance  {float}:  what is chance performance in your task? example if a detection task
+                        then there are 2 response alternatives (yes/no) so enter 0.5, 
+                        if 4 response alternatives enter 0.25
 
     output:
         output.npy file in the our_dir containing:
