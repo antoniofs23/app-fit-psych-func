@@ -19,9 +19,9 @@ def nakarushton(x,data,par,flag):
 # define objective functions for Weibull (accuracy units)
 def weibull(x, data, par, flag):
     gamma = par[0]  # guess rate [fixed and given by experiment]
-    lam = par[1]  # guess rate shouldnt  exceed 2%
+    lam   = par[1]  # guess rate shouldnt  exceed 2%
     alpha = par[2]  # threshold
-    beta = par[3]  # slope
+    beta  = par[3]  # slope
 
     fit = gamma+(1-gamma-lam)*(1-np.exp(-1*(x/alpha)**beta))
 
@@ -30,6 +30,8 @@ def weibull(x, data, par, flag):
     else:
         cost = sum(data-fit)**2
         return cost
+
+
 
 # for testing reasons -- can very loosely convert from d-prime to % correct via 
 def dprime2corr(dprime):
