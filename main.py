@@ -4,6 +4,7 @@ def fit_psy_func(file,func,chance,plot):
     
     Fits specified psychometric function to an individual subject's
     trial-wise responses and plots fit with bootstrapped errorbars
+    error is minimized via negative-log-likelihood
     
     inputs: 
         file   {.csv}:  file containing trial-wise subject responses
