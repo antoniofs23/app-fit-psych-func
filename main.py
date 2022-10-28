@@ -108,6 +108,7 @@ def fit_psy_func(file,chance,plot):
                 plt.semilogx(new_xvals,st_fit[:,c],'-',color=RGB[c],label=num_cond[c])
     if plot:
         plt.ylabel('accuracy (% correct)')
+        plt.xticks(xvals,np.round(xvals,2))
         plt.legend()
         plt.show()
                 
