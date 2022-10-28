@@ -19,7 +19,9 @@ trial-wise responses
 2. chance  <code>{**float**}</code>:  what is chance performance in your task? example: if a detection task then there are 2 response alternatives (yes/no) so enter 0.5, if 4 response alternatives enter 0.25
 
 3. plot  <code>{**bool**}</code>:  if True plots the fits / False = no plots 
----
+
+***
+
 **output:**
 <code>output.npy</code> file in the <code>our_dir</code> containing:
 1. % correct per condition
@@ -27,7 +29,8 @@ trial-wise responses
 3. best fit parameters
           
 
----
+***
+
 
     CREATED BY: Antonio Fernandez (af) [Oct. 20, 2022] <br>
     last edited: Oct. 28, 2020 af
