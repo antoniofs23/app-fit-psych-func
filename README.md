@@ -10,7 +10,10 @@ trial-wise responses [error is minimized via negative-log-likelihood]
 
 |trialsIdx|xvals|conditions|accuracy|
 | ------- | --- | -------- | ------ | 
-|         |     |          |        |  
+|   1      |  0.05   |  valid        |   0.57      |  
+|   2      |  0.2   |  neutral        |   0.77      |  
+|   3      |  0.85   |  invalid        |   0.90      |  
+
 
 2. chance  {float}:  what is chance performance in your task? example: if a detection task then there are 2 response alternatives (yes/no) so enter 0.5, if 4 response alternatives enter 0.25
 
