@@ -35,9 +35,13 @@ def fit_psy_func(file,func,chance,plot):
     from scipy import stats
     from scipy.optimize import minimize
     import builder_funcs as ff
-
+    from itertools import compress, count
+    
     # read csv file 
-    data = pd.read_csv(file)
+    readdata= pd.read_csv(file)
+    
+    #pre-process the data and remove rows with zeros from the data frame [indexed by column labeled trialsIdx]
+    data = readdata[readdata['trialsIdx']!=0]
     
     # extract number of conditions/factors/subjects
     xvals    = np.unique(data['xvals'])
@@ -74,10 +78,19 @@ def fit_psy_func(file,func,chance,plot):
     x0 = (b,0.02,xvals[2],2) # starting point for parameters
     
     # compute % correct per x val and condition
-    
-        
-       
+    acc = np.zeros(shape=[len(xvals),len(num_cond)]) # n/m
+    m = np.zeros(shape=[len(xvals),len(num_cond)]) # total # of trials
+    n = np.zeros(shape=[len(xvals),len(num_cond)]) # correct # of trials
 
+    for x in range(len(xvals)):
+        n_data = data[:][data.xvals==xvals[x]]
+        for c in range(len(num_cond)):
+            c_data   = n_data[:][n_data.conditions==num_cond[c]]
+            m[x,c]   = len(c_data)
+            n[x,c]   = sum(c_data['accuracy']==1)
+            acc[x,c] = n[x,c]/m[x,c]
+    
+            
     # save output parameters in .npy format to be easily readable by other python-based apps
     # subject parameters/fits
     with open('./out_dir/output.npy','wb') as f:
