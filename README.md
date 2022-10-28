@@ -1,8 +1,7 @@
 Fits a psychometric function to an individual subject's
-trial-wise responses 
+trial-wise responses using negative log likelihood
 ---  
-[error is minimized via negative-log-likelihood]
-Right now the function is forced to fit a Weibull, will add more options in the future
+Right now the function is forced to fit a *Weibull*, will add more options via a new input argument in the future
 **inputs:** 
 1. file   <code>{**.csv**}</code>:  file containing trial-wise subject responses (should follow tidy-data format and has to be named <code>'**datafile.csv**'</code> 
     should have the following column labels <code>{*'xvals','trialsIdx','conditions','accuracy'*} </code> in no specific order where:
