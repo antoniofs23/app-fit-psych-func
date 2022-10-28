@@ -21,7 +21,7 @@ trial-wise responses
 3. plot  <code>{**bool**}</code>:  if True plots the fits / False = no plots 
 ---
 **output:**
-output.npy file in the our_dir containing:
+<code>output.npy</code> file in the <code>our_dir</code> containing:
 1. % correct per condition
 2. best fit functions per condition
 3. best fit parameters
