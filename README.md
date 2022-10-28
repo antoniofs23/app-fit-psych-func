@@ -9,6 +9,7 @@ trial-wise responses [error is minimized via negative-log-likelihood]
     * *'accuracy'* is the observer's correct (1) or incorrect (0) responses across trials                
 |trialsIdx|xvals|conditions|accuracy|....|....|
 |---------|-----|----------|--------|----|----|
+|         |     |          |        |    |    |
 2. chance  {float}:  what is chance performance in your task? example: if a detection task then there are 2 response alternatives (yes/no) so enter 0.5, if 4 response alternatives enter 0.25
 
 3. plot  {bool}:  if True plots the fits / False = no plots 
