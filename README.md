@@ -3,7 +3,7 @@ trial-wise responses
 [error is minimized via negative-log-likelihood]
 ---  
 **inputs:** 
-1. file   <code>{**.csv**}</code>:  file containing trial-wise subject responses (should follow tidy-data format and has to be named '**datafile.csv**') 
+1. file   <code>{**.csv**}</code>:  file containing trial-wise subject responses (should follow tidy-data format and has to be named <code>'**datafile.csv**'</code> 
     should have the following column labels <code>{*'xvals','trialsIdx','conditions','accuracy'*} </code> in no specific order where:
     <code>'trialsIdx'</code> is the trial indexes eg. 1...nTrials 
     <code>'conditions'</code>is a column with condition labels could be numerial or string or both 
