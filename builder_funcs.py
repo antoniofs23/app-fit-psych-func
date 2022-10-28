@@ -5,24 +5,9 @@ from scipy import stats
 from scipy.optimize import minimize
 import pandas as pd
     
-    
-# define objective function for Nakarushton (d-prime units)
-def nakarushton(x,data,par,flag):
-    dmax = par[0]
-    c50  = par[1]
-    n    = par[2]
-    b    = par[3]
- 
-    fit = dmax*((x**n)/(x**n+c50**n))+b
-        
-    if flag==True:
-      return fit
-    else:
-      cost = sum(data-fit)**2
-      return cost
         
 # define objective functions for Weibull (accuracy units)
-def weibull(x, data, par, flag):
+def weibull(x, m, n,  par, flag):
     gamma = par[0]  # guess rate [fixed and given by experiment]
     lam   = par[1]  # guess rate shouldnt  exceed 2%
     alpha = par[2]  # threshold
@@ -33,25 +18,21 @@ def weibull(x, data, par, flag):
     if flag == True:
       return fit
     else:
-        cost = sum(data-fit)**2
+        cost = sum(-(n*np.log(fit)+(m-n)*np.log(1-fit)))
         return cost
-
+      
 # evaluates the chosen function with given parameters
-def func_run(x,data,par,flag,fc):
-        if fc=='nakarushton':
-            fit = nakarushton(x,data,par,flag)
-        if fc=='weibull':
-            fit = weibull(x,data,par,flag)
-        return fit
+def func_run(x,par,flag,fc):
+    if fc=='weibull':
+      fit = weibull(x,[],[],par,flag)
+    return fit
 
 # finds best fitting parameters for given function 
-def func_fit(x0,bnds,x,data,flag,fc):
-    if fc == 'nakarushton':
-            fun = lambda par: nakarushton(x,data,par,flag)
-    if fc == 'weibull':
-            fun = lambda par: weibull(x,data,par,flag)
-    return  minimize(fun,x0,method='SLSQP',bounds=bnds)
-      
+def func_fit(x0,bnds,x,m,n,flag,fc):
+  if fc == 'weibull':
+    fun = lambda par: weibull(x,m,n,par,flag)
+  return  minimize(fun,x0,method='SLSQP',bounds=bnds)
+     
 # split alphanumerical into string+num i.e. factor1 = 'factor','1'
 def splitstr(s):
   num_split = s.rstrip('0123456789')
