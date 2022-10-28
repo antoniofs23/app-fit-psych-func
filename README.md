@@ -1,6 +1,7 @@
 Fits specified psychometric function to an individual subject's
-trial-wise responses [error is minimized via negative-log-likelihood]
-    
+trial-wise responses 
+[error is minimized via negative-log-likelihood]
+---  
 **inputs:** 
 1. file   {**.csv**}:  file containing trial-wise subject responses (should follow tidy-data format and has to be named '**datafile.csv**') 
     should have the following column labels {*'xvals','trialsIdx','conditions','accuracy'*} in no specific order where:
@@ -18,7 +19,7 @@ trial-wise responses [error is minimized via negative-log-likelihood]
 2. chance  {**float**}:  what is chance performance in your task? example: if a detection task then there are 2 response alternatives (yes/no) so enter 0.5, if 4 response alternatives enter 0.25
 
 3. plot  {**bool**}:  if True plots the fits / False = no plots 
-    
+---
 **output:**
 output.npy file in the our_dir containing:
 1. % correct per condition
