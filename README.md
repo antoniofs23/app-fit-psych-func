@@ -32,6 +32,6 @@ trial-wise responses
 ***
 
 
-    CREATED BY: Antonio Fernandez (af) [Oct. 20, 2022] <br>
+    CREATED BY: Antonio Fernandez (af) [Oct. 20, 2022] 
     last edited: Oct. 28, 2020 af
     
