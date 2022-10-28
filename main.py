@@ -1,7 +1,8 @@
 def fit_psy_func(file,chance,plot):
     '''    
-    Fits specified psychometric function to an individual subject's
+    Fits a psychometric function to an individual subject's
     trial-wise responses [error is minimized via negative-log-likelihood]
+    right now - forced to fit a Weibull function, will add more options in the future
     
     inputs: 
         file   {.csv}:  file containing trial-wise subject responses (should follow tidy-data format)
