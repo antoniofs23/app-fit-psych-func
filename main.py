@@ -105,9 +105,10 @@ def fit_psy_func(file,chance,plot):
             if flg=='log':
                 plt.semilogx(xvals,temp_data,'o',color=RGB[c])
                 plt.semilogx(new_xvals,st_fit[:,c],'-',color=RGB[c],label=num_cond[c])
-    plt.ylabel('accuracy (% correct)')
-    plt.legend()
-    plt.show()
+    if plot:
+        plt.ylabel('accuracy (% correct)')
+        plt.legend()
+        plt.show()
                 
     #save output parameters in .npy format to be easily readable by other python-based apps
     # subject parameters/fits

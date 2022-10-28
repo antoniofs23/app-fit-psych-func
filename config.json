@@ -1,5 +1,5 @@
 {
    "file": "datafile.csv",
    "chance": 0.50,
-   "plot": false
+   "plot": true
 }
