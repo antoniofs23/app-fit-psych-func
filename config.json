@@ -1,6 +1,6 @@
 {
-   "file": "sample_csv_data3.csv",
-   "units": "accuracy",
-   "chance": 0.25,
-   "color": [0]
+   "file": "distractor.csv",
+   "func": "weibull",
+   "chance": 0.50,
+   "plot": false
 }
