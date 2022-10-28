@@ -2,7 +2,7 @@ Fits specified psychometric function to an individual subject's
 trial-wise responses [error is minimized via negative-log-likelihood]
     
 **inputs:** 
-1. file   {**.csv**}:  file containing trial-wise subject responses (should follow tidy-data format) 
+1. file   {**.csv**}:  file containing trial-wise subject responses (should follow tidy-data format and has to be named '**datafile.csv**') 
     should have the following column labels {*'xvals','trialsIdx','conditions','accuracy'*} in no specific order where:
     * *'trialsIdx'* is the trial indexes eg. 1...nTrials 
     * *'conditions'* is a column with condition labels could be numerial or string or both 
