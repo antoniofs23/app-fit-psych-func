@@ -14,8 +14,9 @@ output.npy file in the our_dir containing:
 2. best fit functions per condition
 3. best fit parameters
           
-    CREATED BY: Antonio Fernandez (af) [Oct. 20, 2022]
+
+
+
+    CREATED BY: Antonio Fernandez (af) [Oct. 20, 2022] <br>
+    last edited: Oct. 28, 2020 af
     
-    last edited: Oct. 27, 2020 af
-    
-    contact: antoniofs23@gmail.com
