@@ -36,7 +36,7 @@ def fit_psy_func(file,chance,plot):
     #pre-process the data and remove rows with zeros from the data frame [indexed by column labeled trialsIdx]
     data = readdata[readdata['trialsIdx']!=0]
     
-    # extract number of conditions/factors/subjects
+    # extract number of conditions/xvals
     xvals    = np.unique(data['xvals'])
     num_cond = np.unique(data['conditions'])
     
