@@ -15,5 +15,7 @@ output.npy file in the our_dir containing:
 3. best fit parameters
           
     CREATED BY: Antonio Fernandez (af) [Oct. 20, 2022]
+    
     last edited: Oct. 27, 2020 af
+    
     contact: antoniofs23@gmail.com
