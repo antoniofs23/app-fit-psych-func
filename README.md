@@ -4,7 +4,7 @@ trial-wise responses
 ---  
 **inputs:** 
 1. file   {**.csv**}:  file containing trial-wise subject responses (should follow tidy-data format and has to be named '**datafile.csv**') 
-    should have the following column labels {*'xvals','trialsIdx','conditions','accuracy'*} in no specific order where:
+    should have the following column labels <code>{*'xvals','trialsIdx','conditions','accuracy'*} </code> in no specific order where:
     * *'trialsIdx'* is the trial indexes eg. 1...nTrials 
     * *'conditions'* is a column with condition labels could be numerial or string or both 
     * *'accuracy'* is the observer's correct (1) or incorrect (0) responses across trials                
