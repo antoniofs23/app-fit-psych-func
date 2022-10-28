@@ -3,11 +3,11 @@ trial-wise responses
 [error is minimized via negative-log-likelihood]
 ---  
 **inputs:** 
-1. file   {**.csv**}:  file containing trial-wise subject responses (should follow tidy-data format and has to be named '**datafile.csv**') 
+1. file   <code>{**.csv**}</code>:  file containing trial-wise subject responses (should follow tidy-data format and has to be named '**datafile.csv**') 
     should have the following column labels <code>{*'xvals','trialsIdx','conditions','accuracy'*} </code> in no specific order where:
-    * *'trialsIdx'* is the trial indexes eg. 1...nTrials 
-    * *'conditions'* is a column with condition labels could be numerial or string or both 
-    * *'accuracy'* is the observer's correct (1) or incorrect (0) responses across trials                
+    <code>'trialsIdx'</code> is the trial indexes eg. 1...nTrials 
+    <code>'conditions'</code>is a column with condition labels could be numerial or string or both 
+    <code>'accuracy'</code> is the observer's correct (1) or incorrect (0) responses across trials                
 
 |trialsIdx|xvals|conditions|accuracy|
 | ------- | --- | -------- | ------ | 
@@ -16,9 +16,9 @@ trial-wise responses
 |   3      |  0.85   |  invalid        |   0.90      |  
 
 
-2. chance  {**float**}:  what is chance performance in your task? example: if a detection task then there are 2 response alternatives (yes/no) so enter 0.5, if 4 response alternatives enter 0.25
+2. chance  <code>{**float**}</code>:  what is chance performance in your task? example: if a detection task then there are 2 response alternatives (yes/no) so enter 0.5, if 4 response alternatives enter 0.25
 
-3. plot  {**bool**}:  if True plots the fits / False = no plots 
+3. plot  <code>{**bool**}</code>:  if True plots the fits / False = no plots 
 ---
 **output:**
 output.npy file in the our_dir containing:
