@@ -1,7 +1,10 @@
 Fits a psychometric function to an individual subject's
-trial-wise responses using negative log likelihood
+trial-wise responses using negative log likelihood (nLL)
 ---  
 Right now the function is forced to fit a *Weibull*, will add more options via a new input argument in the future
+
+* objective function: Weibull
+* cost function: nLL
 
 **inputs:** 
 1. file   <code>{**.csv**}</code>:  file containing trial-wise subject responses (should follow tidy-data format and has to be named <code>'**datafile.csv**'</code> 
