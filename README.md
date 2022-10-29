@@ -12,9 +12,9 @@ Right now the function is forced to fit a *Weibull*, will add more options via a
 
 |trialsIdx|xvals|conditions|accuracy|
 | ------- | --- | -------- | ------ | 
-|   1      |  0.05   |  valid        |   0.57      |  
-|   2      |  0.2   |  neutral        |   0.77      |  
-|   3      |  0.85   |  invalid        |   0.90      |  
+|   1      |  0.05   |  valid        |   0      |  
+|   2      |  0.2   |  neutral        |   1      |  
+|   3      |  0.85   |  invalid        |   1      |  
 
 
 2. chance  <code>{**float**}</code>:  what is chance performance in your task? example: if a detection task then there are 2 response alternatives (yes/no) so enter 0.5, if 4 response alternatives enter 0.25
